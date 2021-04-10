@@ -5,8 +5,8 @@ import (
 )
 
 type ProductRepository interface {
-	Store() error
-	Update() error
+	Store( entity.Product) error
+	Update( entity.Product) error
 	FindAll()[] entity.Product
 	FindByCode(code string)entity.Product
 	Delete(code string) error

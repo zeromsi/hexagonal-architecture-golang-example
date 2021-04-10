@@ -84,3 +84,7 @@ golang.org/x/sync/semaphore
 # golang.org/x/text v0.3.5
 golang.org/x/text/transform
 golang.org/x/text/unicode/norm
+# gopkg.in/mgo.v2 v2.0.0-20190816093944-a6b53ec6cb22
+## explicit
+gopkg.in/mgo.v2/bson
+gopkg.in/mgo.v2/internal/json
