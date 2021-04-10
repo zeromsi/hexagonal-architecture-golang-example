@@ -1,6 +1,4 @@
-package entity
-
-import "hexagonal-architecture-example/core/dto"
+package core
 
 type Product struct {
 	Code      string `bson:"code"`
@@ -8,8 +6,8 @@ type Product struct {
 	Price    int32 `bson:"price"`
 }
 
-func(product Product) GetProductDto() dto.Product{
-	return dto.Product{
+func(product Product) GetProductDto() ProductDto{
+	return ProductDto{
 		Code:  product.Code,
 		Name:  product.Name,
 		Price: product.Price,

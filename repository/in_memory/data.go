@@ -1,10 +1,10 @@
 package in_memory
 
 import (
-	"hexagonal-architecture-example/core/entity"
+	"hexagonal-architecture-example/core"
 )
 
-var products [] entity.Product
+var products [] core.Product
 
 
 

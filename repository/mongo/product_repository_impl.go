@@ -5,7 +5,7 @@ import (
 	"errors"
 	"go.mongodb.org/mongo-driver/mongo/options"
 	"gopkg.in/mgo.v2/bson"
-	"hexagonal-architecture-example/core/entity"
+	"hexagonal-architecture-example/core"
 	"hexagonal-architecture-example/core/repository"
 	"log"
 	"time"
@@ -20,7 +20,7 @@ type productRepository struct {
 	timeout  time.Duration
 }
 
-func (p productRepository) Store(product entity.Product) error {
+func (p productRepository) Store(product core.Product) error {
 	coll := p.manager.Db.Collection(ProductCollection)
 	_, err := coll.InsertOne(p.manager.Ctx, product)
 	if err != nil {
@@ -30,7 +30,7 @@ func (p productRepository) Store(product entity.Product) error {
 	return nil
 }
 
-func (p productRepository) Update(product entity.Product) error {
+func (p productRepository) Update(product core.Product) error {
 	filter := bson.M{
 		"$and": []bson.M{
 			{"code": product.Code},
@@ -56,13 +56,16 @@ func (p productRepository) Update(product entity.Product) error {
 	return nil
 }
 
-func (p productRepository) FindAll() []entity.Product {
-	data := []entity.Product{}
-	query:= bson.M{"$and": []bson.M{}}
+func (p productRepository) FindAll() []core.Product {
+	var data []core.Product
+	query:= bson.M{}
 	coll := p.manager.Db.Collection(ProductCollection)
-	curser, _ := coll.Find(p.manager.Ctx, query)
+	curser, err := coll.Find(p.manager.Ctx, query)
+	if err!=nil{
+		log.Println(err.Error())
+	}
 	for curser.Next(context.TODO()) {
-		elemValue := new(entity.Product)
+		elemValue := new(core.Product)
 		err := curser.Decode(elemValue)
 		if err != nil {
 			log.Println("[ERROR]", err)
@@ -73,13 +76,13 @@ func (p productRepository) FindAll() []entity.Product {
 	return data
 }
 
-func (p productRepository) FindByCode(code string) entity.Product {
+func (p productRepository) FindByCode(code string) core.Product {
 	query := bson.M{
 		"$and": []bson.M{
 			{"code": code},
 		},
 	}
-	temp := new(entity.Product)
+	temp := new(core.Product)
 	coll := p.manager.Db.Collection(ProductCollection)
 	result := coll.FindOne(p.manager.Ctx, query)
 	err := result.Decode(temp)

@@ -1,15 +1,14 @@
 package service
 
 import (
-	"hexagonal-architecture-example/core/dto"
-	"hexagonal-architecture-example/core/entity"
+	"hexagonal-architecture-example/core"
 )
 
 type ProductService interface {
-	Store( product entity.Product) error
-	Update( product entity.Product)  error
-	FindAll()[] dto.Product
-	FindByCode(code string)dto.Product
+	Store( product core.Product) error
+	Update( product core.ProductDto)  error
+	FindAll()[] core.ProductDto
+	FindByCode(code string)core.ProductDto
 	Delete(code string) error
 }
 

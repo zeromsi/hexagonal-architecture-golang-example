@@ -2,19 +2,19 @@ package in_memory
 
 import (
 	"errors"
-	"hexagonal-architecture-example/core/entity"
+	"hexagonal-architecture-example/core"
 	"hexagonal-architecture-example/core/repository"
 )
 
 type productRepository struct {
 }
 
-func (p productRepository) Store(product entity.Product) error {
+func (p productRepository) Store(product core.Product) error {
 	products=append(products, product)
 	return nil
 }
 
-func (p productRepository) Update(product entity.Product) error {
+func (p productRepository) Update(product core.Product) error {
 	for i,each:=range products{
 		if each.Code==product.Code{
 			products[i]=product
@@ -24,17 +24,17 @@ func (p productRepository) Update(product entity.Product) error {
 	return nil
 }
 
-func (p productRepository) FindAll() []entity.Product {
+func (p productRepository) FindAll() []core.Product {
 	return products
 }
 
-func (p productRepository) FindByCode(code string) entity.Product {
+func (p productRepository) FindByCode(code string) core.Product {
 	for _,each:=range products{
 		if each.Code==code{
 			return each
 		}
 	}
-	return entity.Product{}
+	return core.Product{}
 }
 
 func (p productRepository) Delete(code string) error {
@@ -52,7 +52,7 @@ func (p productRepository) Delete(code string) error {
 
 }
 
-func NewPermissionRepository(mongoURL, mongoTimeout int) (repository.ProductRepository, error) {
+func NewProductRepository() (repository.ProductRepository) {
 	return &productRepository{
-	}, nil
+	}
 }

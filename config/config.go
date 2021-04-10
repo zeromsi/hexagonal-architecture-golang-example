@@ -17,17 +17,27 @@ var DbPassword string
 var DatabaseConnectionString string
 var DatabaseName string
 var Database string
-var PrivateKey string
-var Publickey string
+var ServiceVersion string
+var Serializer string
+
+type SERIALIZER string
+const (
+	JSON SERIALIZER= "JSON"
+	XML SERIALIZER= "XML"
+	MSGPACK SERIALIZER= "MSGPACK"
+)
 
 type DATABASE string
-
 const (
 	MONGO DATABASE= "MONGO"
 	MYSQL DATABASE= "MYSQL"
 	IN_MEMORY DATABASE= "IN_MEMORY"
 )
 
+type SERVICE_VERSION string
+const (
+	V1 SERVICE_VERSION= "V1"
+)
 func InitEnvironmentVariables() {
 	RunMode = os.Getenv("RUN_MODE")
 	if RunMode == "" {
@@ -52,13 +62,12 @@ func InitEnvironmentVariables() {
 	DbPassword = os.Getenv("MONGO_PASSWORD")
 	DatabaseName = os.Getenv("DATABASE_NAME")
 	Database=os.Getenv("DATABASE")
-	PrivateKey =os.Getenv("PRIVATE_KEY")
-	Publickey=os.Getenv("PUBLIC_KEY")
-
+	ServiceVersion=os.Getenv("SERVICE_VERSION")
+	Serializer=os.Getenv("SERIALIZER")
 	if Database==string(MONGO){
 		DatabaseConnectionString = "mongodb://" + DbUsername + ":" + DbPassword + "@" + DbServer + ":" + DbPort
 	}
-	if Database==string(MONGO){
+	if Database==string(MYSQL){
 		DatabaseConnectionString = DbUsername+":"+DbPassword+"@tcp("+DbServer+":"+DbPort+")/"+DatabaseName
 	}
 
