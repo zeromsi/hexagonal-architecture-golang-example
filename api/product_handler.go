@@ -85,6 +85,8 @@ func (p productHandler) ServeProduct(writer http.ResponseWriter, request *http.R
 				utility.ShowError(writer, request, http.StatusOK, err.Error())
 				return
 			}
+			utility.ShowSuccess(writer, request, http.StatusOK, "Operation Successful!")
+			return
 		}
 
 		utility.ShowError(writer, request, http.StatusOK, "Please provide a code!")
