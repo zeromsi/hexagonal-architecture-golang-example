@@ -17,8 +17,6 @@
 │   ├── load_env.go
 │   └── run_mode.go
 ├── core
-│   ├── dto
-│   ├── entity
 │   ├── logic
 │   │   └── v1_product_service_impl.go
 │   ├── product_dto.go
@@ -30,6 +28,7 @@
 │   └── service
 │       └── productService.go
 ├── dependency
+│   ├── serializer_loader.go
 │   └── service_loader.go
 ├── Dockerfile
 ├── go.mod
@@ -55,6 +54,5 @@
     │   └── product.go
     └── xml
         └── product.go
-
 
 ```
