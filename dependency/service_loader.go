@@ -3,15 +3,11 @@ package dependency
 import (
 	"hexagonal-architecture-example/config"
 	"hexagonal-architecture-example/core/logic"
-	"hexagonal-architecture-example/core/serializer"
 	"hexagonal-architecture-example/core/service"
 	"hexagonal-architecture-example/repository/in_memory"
 	"hexagonal-architecture-example/repository/mongo"
 	"hexagonal-architecture-example/repository/mysql"
 	"hexagonal-architecture-example/repository/redis"
-	"hexagonal-architecture-example/serializer/json"
-	"hexagonal-architecture-example/serializer/msgpack"
-	"hexagonal-architecture-example/serializer/xml"
 )
 
 func GetProductService() service.ProductService {
@@ -28,17 +24,6 @@ func GetProductService() service.ProductService {
 			return nil
 		}
 	}else {
-		return nil
-	}
-}
-func GetProductSerializer() serializer.ProductSerializer{
-	if config.Serializer==string(config.JSON){
-		return json.NewProductSerializer()
-	}else if config.Serializer==string(config.XML){
-		return xml.NewProductSerializer()
-	}else if config.Serializer==string(config.MSGPACK){
-		return msgpack.NewProductSerializer()
-	}else{
 		return nil
 	}
 }
