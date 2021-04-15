@@ -20,6 +20,7 @@ type productHandler struct {
 }
 
 func (p productHandler) ServeProduct(writer http.ResponseWriter, request *http.Request) {
+	log.Println("api: product")
 	if  request.Method==http.MethodPost {
 		body, err := ioutil.ReadAll(request.Body)
 		if err != nil {

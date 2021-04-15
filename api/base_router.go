@@ -7,5 +7,5 @@ import (
 
 func Routes() {
 	v1ProductHandler := NewProductHandler()
-	http.HandleFunc("/api/v1/products/", middleware.MultipleMiddleware(v1ProductHandler.ServeProduct))
+	http.HandleFunc("/api/v1/products/", middleware.Chain(v1ProductHandler.ServeProduct,middleware.TokenValidator{}.ValidateToken))
 }
